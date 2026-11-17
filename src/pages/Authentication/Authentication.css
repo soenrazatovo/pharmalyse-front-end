@@ -177,6 +177,53 @@ body,
   transform: none !important;
 }
 
+/* MOT DE PASSE OUBLIE */
+
+.auth-forgot {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+
+  margin-top: -0.25rem;
+  margin-bottom: 0.25rem;
+}
+
+.auth-forgot-btn {
+  min-width: unset !important;
+  padding: 0 !important;
+
+  color: var(--color-primary) !important;
+
+  font-size: 0.95rem !important;
+  font-weight: 700 !important;
+
+  text-transform: none !important;
+
+  transition: color 0.25s ease !important;
+}
+
+.auth-forgot-btn:hover {
+  background: transparent !important;
+  color: #39846a !important;
+}
+
+.auth-forgot-btn:active {
+  color: #4f9b80 !important;
+}
+
+/* DESCRIPTION REINITIALISATION */
+
+.auth-description {
+  color: var(--color-primary);
+  text-align: center;
+
+  font-size: 1rem !important;
+  font-weight: 500 !important;
+
+  line-height: 1.6 !important;
+  margin-bottom: 0.5rem !important;
+}
+
 /* SWITCH */
 
 .auth-switch {
@@ -240,5 +287,13 @@ body,
 
   .auth-title {
     font-size: 2.5rem !important;
+  }
+
+  .auth-forgot-btn {
+    font-size: 0.9rem !important;
+  }
+
+  .auth-description {
+    font-size: 0.95rem !important;
   }
 }

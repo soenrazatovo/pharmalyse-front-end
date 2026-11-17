@@ -1,5 +1,6 @@
 import { useState } from "react";
 import "./Authentication.css";
+import Password from "../../components/Password/Password";
 
 import {
   Box,
@@ -18,12 +19,24 @@ function Authentication({ _type = "login" }) {
     setType((prev) => (prev === "login" ? "signup" : "login"));
   };
 
+  const handleForgotPassword = () => {
+    setType("forgot");
+  };
+
+  const handleBackToLogin = () => {
+    setType("login");
+  };
+
   return (
     <Box className="auth-container">
       <Card className="auth-card">
         <CardContent>
           <Typography variant="h3" className="auth-title">
-            {type === "login" ? "Connexion" : "Inscription"}
+            {type === "login"
+              ? "Connexion"
+              : type === "signup"
+                ? "Inscription"
+                : "Mot de passe oublié"}
           </Typography>
 
           <Stack spacing={1.5}>
@@ -35,37 +48,70 @@ function Authentication({ _type = "login" }) {
               </div>
             )}
 
+            {type === "forgot" && (
+              <Typography className="auth-description">
+                Entrez votre adresse email pour recevoir un lien de
+                réinitialisation de votre mot de passe.
+              </Typography>
+            )}
+
             <TextField fullWidth label="Adresse email" type="email" />
 
-            <TextField fullWidth label="Mot de passe" type="password" />
+            {type !== "forgot" && <Password fullWidth label="Mot de passe" />}
+
+            {type === "login" && (
+              <div className="auth-forgot">
+                <Button
+                  variant="text"
+                  onClick={handleForgotPassword}
+                  className="auth-forgot-btn"
+                >
+                  Mot de passe oublié ?
+                </Button>
+              </div>
+            )}
 
             {type === "signup" && (
-              <TextField
-                fullWidth
-                label="Confirmation du mot de passe"
-                type="password"
-              />
+              <Password fullWidth label="Confirmation du mot de passe" />
             )}
 
             <Button variant="contained" fullWidth className="auth-button">
-              {type === "login" ? "Se connecter" : "Créer un compte"}
+              {type === "login"
+                ? "Se connecter"
+                : type === "signup"
+                  ? "Créer un compte"
+                  : "Envoyer le lien"}
             </Button>
 
-            <div className="auth-switch">
-              <span>
-                {type === "login"
-                  ? "Pas encore de compte ?"
-                  : "Déjà un compte ?"}
-              </span>
+            {type === "forgot" ? (
+              <div className="auth-switch">
+                <span>Retour à la</span>
 
-              <Button
-                variant="text"
-                onClick={toggleAuth}
-                className="auth-switch-btn"
-              >
-                {type === "login" ? "S'inscrire" : "Se connecter"}
-              </Button>
-            </div>
+                <Button
+                  variant="text"
+                  onClick={handleBackToLogin}
+                  className="auth-switch-btn"
+                >
+                  Connexion
+                </Button>
+              </div>
+            ) : (
+              <div className="auth-switch">
+                <span>
+                  {type === "login"
+                    ? "Pas encore de compte ?"
+                    : "Déjà un compte ?"}
+                </span>
+
+                <Button
+                  variant="text"
+                  onClick={toggleAuth}
+                  className="auth-switch-btn"
+                >
+                  {type === "login" ? "S'inscrire" : "Se connecter"}
+                </Button>
+              </div>
+            )}
           </Stack>
         </CardContent>
       </Card>
