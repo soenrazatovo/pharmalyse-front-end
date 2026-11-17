@@ -10,11 +10,7 @@ import IconButton from '@mui/material/IconButton';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import AddIcon from '@mui/icons-material/Add';
 
-const FAVORITES = [
-  { category: 'Antalgique', name: 'Doliprane 1000mg', note: 'Repris tous les ~30 jours', recall: false },
-  { category: 'Antihistaminique', name: 'Aerius 5mg', note: 'Saison des pollens', recall: false },
-  { category: 'Rappel en cours', name: 'Clamoxyl 500mg', note: 'À retourner en pharmacie', recall: true },
-];
+import { Link as RouterLink } from 'react-router-dom';
 
 const RECURRENCES = [
   ['Doliprane 1000mg', 'Prochaine reprise probable : 12 nov.'],
@@ -22,13 +18,14 @@ const RECURRENCES = [
 ];
 
 // userName: prénom affiché dans le message d'accueil
-export default function HomeLoggedIn({ userName = 'Camille' }) {
-  const recalledFavorite = FAVORITES.find((f) => f.recall);
+// favorites: liste des favoris (état dans App), onRemoveFavorite(id)
+export default function HomeLoggedIn({ userName = 'Camille', favorites = [], onRemoveFavorite }) {
+  const recalledFavorite = favorites.find((f) => f.recall);
 
   return (
     <Box>
       {/* Greeting */}
-      <Container maxWidth="lg" sx={{ pt: 7, pb: 1 }}>
+      <Container maxWidth="lg" sx={{ pt: 7, pb: 1, textAlign: 'center' }}>
         <Typography variant="h1" color="primary.main" gutterBottom>
           Bonjour, {userName}
         </Typography>
@@ -69,11 +66,11 @@ export default function HomeLoggedIn({ userName = 'Camille' }) {
       <Container maxWidth="lg" sx={{ pt: 5, pb: 1 }}>
         <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', flexWrap: 'wrap', mb: 2.75 }}>
           <Typography variant="h2" color="primary.main">Vos favoris</Typography>
-          <Button href="#" color="primary">Gérer →</Button>
+          <Button component={RouterLink} to="/favoris" color="primary">Gérer →</Button>
         </Box>
         <Grid container spacing={2}>
-          {FAVORITES.map((m) => (
-            <Grid item xs={12} sm={6} md={3} key={m.name}>
+          {favorites.map((m) => (
+            <Grid size={{ xs: 12, sm: 6, md: 3 }} key={m.id}>
               <Card
                 sx={{
                   bgcolor: m.recall ? 'background.default' : 'background.paper',
@@ -88,6 +85,7 @@ export default function HomeLoggedIn({ userName = 'Camille' }) {
                 <IconButton
                   size="small"
                   aria-label={`Retirer ${m.name} des favoris`}
+                  onClick={() => onRemoveFavorite?.(m.id)}
                   sx={{ position: 'absolute', top: 10, right: 10, color: 'primary.main' }}
                 >
                   <FavoriteIcon fontSize="small" />
@@ -106,10 +104,10 @@ export default function HomeLoggedIn({ userName = 'Camille' }) {
               </Card>
             </Grid>
           ))}
-          <Grid item xs={12} sm={6} md={3}>
+          <Grid size={{ xs: 12, sm: 6, md: 3 }}>
             <Card
-              component="button"
-              onClick={() => {}}
+              component={RouterLink}
+              to="/favoris"
               sx={{
                 width: '100%',
                 height: '100%',
@@ -137,7 +135,7 @@ export default function HomeLoggedIn({ userName = 'Camille' }) {
       {/* Récurrences + pharmacie proche */}
       <Container maxWidth="lg" sx={{ pt: 6, pb: 8 }}>
         <Grid container spacing={2.75}>
-          <Grid item xs={12} md={7}>
+          <Grid size={{ xs: 12, md: 7 }}>
             <Card sx={{ bgcolor: 'background.paper', p: 3, height: '100%' }} elevation={0}>
               <Typography variant="h3" color="primary.main" gutterBottom>
                 D'après vos récurrences
@@ -163,7 +161,7 @@ export default function HomeLoggedIn({ userName = 'Camille' }) {
               ))}
             </Card>
           </Grid>
-          <Grid item xs={12} md={5}>
+          <Grid size={{ xs: 12, md: 5 }}>
             <Card sx={{ bgcolor: 'primary.main', color: 'background.default', p: 3, height: '100%' }} elevation={0}>
               <Typography variant="h3" sx={{ color: 'background.default' }} gutterBottom>
                 Pharmacie la plus proche

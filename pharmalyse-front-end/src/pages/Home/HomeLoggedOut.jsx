@@ -6,6 +6,7 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Chip from '@mui/material/Chip';
 import Button from '@mui/material/Button';
+import { Link as RouterLink } from 'react-router-dom';
 
 const FEATURES = [
   { title: 'Récurrences', body: 'Suivez les traitements que vous reprenez le plus souvent.', tags: ['Historique', 'Rythme'] },
@@ -26,14 +27,22 @@ export default function HomeLoggedOut() {
     <Box>
       {/* Hero */}
       <Container maxWidth="lg" sx={{ pt: 9, pb: 7 }}>
-        <Box sx={{ maxWidth: 640 }}>
+        <Box sx={{ maxWidth: 760, mx: 'auto', textAlign: 'center' }}>
           <Typography variant="h1" color="primary.main" gutterBottom>
             Chaque médicament français, décortiqué.
           </Typography>
-          <Typography variant="body1" color="text.secondary">
+          <Typography variant="body1" color="text.secondary" sx={{ mb: 4 }}>
             Interactions, allergènes, rappels de lots et pharmacies autour de
             vous — tout ce que vous cherchez avant d'ouvrir la boîte.
           </Typography>
+          <Box sx={{ display: 'flex', gap: 2, justifyContent: 'center', flexWrap: 'wrap' }}>
+            <Button component={RouterLink} to="/signup" variant="contained" color="primary" size="large">
+              Créer un compte
+            </Button>
+            <Button component={RouterLink} to="/login" variant="outlined" color="primary" size="large">
+              Se connecter
+            </Button>
+          </Box>
         </Box>
       </Container>
 
@@ -41,7 +50,7 @@ export default function HomeLoggedOut() {
       <Container maxWidth="lg" sx={{ pb: 8 }}>
         <Grid container spacing={2.5}>
           {FEATURES.map((f) => (
-            <Grid item xs={12} sm={6} md={3} key={f.title}>
+            <Grid size={{ xs: 12, sm: 6, md: 3 }} key={f.title}>
               <Card sx={{ bgcolor: 'background.default', p: 1.5, height: '100%' }} elevation={0}>
                 <Box sx={{ bgcolor: 'primary.main', color: 'background.default', borderRadius: 2, p: 2, fontWeight: 600 }}>
                   {f.title}
@@ -65,13 +74,13 @@ export default function HomeLoggedOut() {
       {/* Browse grid, style Vinted */}
       <Box sx={{ bgcolor: 'background.paper', py: 7 }}>
         <Container maxWidth="lg">
-          <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', flexWrap: 'wrap', mb: 3.5 }}>
+          <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', flexWrap: 'wrap', gap: 1, mb: 3.5 }}>
             <Typography variant="h2" color="primary.main">Parcourir le répertoire</Typography>
             <Button href="#" color="primary">Tout voir →</Button>
           </Box>
           <Grid container spacing={2}>
             {MEDICATIONS.map((m) => (
-              <Grid item xs={12} sm={6} md={3} key={m.name}>
+              <Grid size={{ xs: 12, sm: 6, md: 3 }} key={m.name}>
                 <Card
                   component="a"
                   href="#"
