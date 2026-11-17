@@ -1,3 +1,244 @@
-* {
-    font-family: 'Satoshi', sans-serif;
+@import url("https://api.fontshare.com/v2/css?f[]=satoshi@300,400,500,700,900&display=swap");
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  font-family: "Satoshi", sans-serif !important;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  overflow: hidden;
+  font-family: "Satoshi", sans-serif !important;
+}
+
+:root {
+  font-size: 16px;
+
+  --color-primary: #084734;
+  --color-secondary: #cef17b;
+  --color-tertiary: #e5fccd;
+  --color-background: #fff9db;
+
+  --font-size-title: 3.5rem;
+  --font-size-subtitle: 1.75rem;
+  --font-size-text: 1.25rem;
+  --font-size-description: 1rem;
+
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-7: 1.75rem;
+  --space-8: 2rem;
+  --space-9: 2.25rem;
+  --space-10: 2.5rem;
+  --space-11: 2.75rem;
+  --space-12: 3rem;
+}
+
+/* PAGE */
+
+.auth-container {
+  min-height: 100vh;
+  background: var(--color-background);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  padding: 32px;
+}
+
+/* CARD */
+
+.auth-card {
+  width: 100%;
+  max-width: 560px;
+
+  max-height: calc(100vh - 64px);
+
+  border-radius: 24px !important;
+  background: white !important;
+
+  border: 2px solid var(--color-background);
+
+  box-shadow: 0 15px 35px rgba(8, 71, 52, 0.08) !important;
+}
+
+.auth-card .MuiCardContent-root {
+  padding: 1.75rem 2rem !important;
+}
+
+/* TITLE */
+
+.auth-title {
+  color: var(--color-primary);
+  text-align: center;
+  font-weight: 900 !important;
+  letter-spacing: -2px;
+  margin-bottom: 1.25rem !important;
+}
+
+/* NOM / PRENOM */
+
+.auth-row {
+  display: flex;
+  gap: 1rem;
+}
+
+.auth-half {
+  flex: 1;
+}
+
+/* INPUTS */
+
+.MuiTextField-root {
+  width: 100%;
+}
+
+.MuiOutlinedInput-root {
+  border-radius: 14px !important;
+  transition:
+    border-color 0.3s ease,
+    box-shadow 0.3s ease !important;
+}
+
+.MuiOutlinedInput-root fieldset {
+  border: 2px solid var(--color-primary) !important;
+  transition: border-color 0.3s ease !important;
+}
+
+.MuiOutlinedInput-root:hover fieldset {
+  border-color: var(--color-primary) !important;
+}
+
+.MuiOutlinedInput-root.Mui-focused fieldset {
+  border-color: #39846a !important;
+}
+
+.MuiInputLabel-root {
+  color: var(--color-primary) !important;
+  font-weight: 500 !important;
+
+  transition:
+    color 0.3s ease,
+    transform 0.25s ease,
+    font-size 0.25s ease !important;
+
+  transform-origin: top left;
+}
+
+.MuiInputLabel-root.Mui-focused {
+  color: #39846a !important;
+}
+
+.MuiOutlinedInput-input {
+  color: var(--color-primary) !important;
+  font-weight: 500 !important;
+
+  transition: color 0.3s ease !important;
+}
+
+/* BUTTON */
+
+.auth-button {
+  height: 54px;
+  border-radius: 14px !important;
+  background: var(--color-primary) !important;
+  color: #ffffff !important;
+  font-weight: 700 !important;
+  font-size: 1rem !important;
+  text-transform: none !important;
+
+  margin-bottom: 24px !important;
+
+  transition:
+    background-color 0.3s ease,
+    box-shadow 0.3s ease !important;
+}
+
+.auth-button:hover {
+  background: #39846a !important;
+  color: #ffffff !important;
+  transform: none !important;
+  box-shadow: 0 5px 14px rgba(8, 71, 52, 0.14);
+}
+
+.auth-button:active {
+  background: #084734 !important;
+  transform: none !important;
+}
+
+/* SWITCH */
+
+.auth-switch {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  gap: 0.4rem;
+
+  margin-top: 0 !important;
+
+  color: var(--color-primary);
+  font-size: 1.05rem;
+}
+
+.auth-switch-btn {
+  min-width: unset !important;
+  padding: 0 !important;
+
+  color: var(--color-primary) !important;
+
+  font-size: 1.2rem !important;
+  font-weight: 800 !important;
+
+  line-height: 1 !important;
+  text-transform: none !important;
+
+  transition: color 0.25s ease !important;
+}
+
+.auth-switch-btn:hover {
+  background: transparent !important;
+  color: #39846a !important;
+}
+
+.auth-switch-btn:active {
+  color: #4f9b80 !important;
+}
+
+/* TYPOGRAPHIE MUI */
+
+.MuiTypography-root,
+.MuiButton-root,
+.MuiInputBase-root,
+.MuiInputLabel-root,
+.MuiFormLabel-root,
+.MuiOutlinedInput-input {
+  font-family: "Satoshi", sans-serif !important;
+}
+
+/* MOBILE */
+
+@media (max-width: 600px) {
+  .auth-row {
+    flex-direction: column;
+  }
+
+  .auth-card .MuiCardContent-root {
+    padding: 1.5rem !important;
+  }
+
+  .auth-title {
+    font-size: 2.5rem !important;
+  }
 }
