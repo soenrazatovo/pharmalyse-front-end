@@ -1,33 +1,32 @@
-import React from "react";
 import { Link } from "react-router-dom";
 import "./PageNotFound.css";
 
 export default function PageNotFound() {
   return (
     <main className="not-found">
-      {/* Formes décoratives */}
-      <div className="not-found__corner not-found__corner--top" />
-      <div className="not-found__corner not-found__corner--bottom" />
+      {/* Décorations */}
+      <div className="not-found__corner not-found__corner--top"></div>
+      <div className="not-found__corner not-found__corner--bottom"></div>
 
-      {/* Contenu principal */}
+      {/* Contenu */}
       <div className="not-found__content">
         <div className="not-found__error">
-          <div className="not-found__highlight" />
+          <div className="not-found__highlight"></div>
           <span>404</span>
         </div>
 
-        <h1>Page Not Found</h1>
+        <h1>Page introuvable</h1>
 
         <p>
-          The page you're looking for doesn't exist
-          <br className="not-found__desktop-break" /> or may have been moved.
+          La page que vous recherchez n'existe pas
+          <br className="not-found__desktop-break" /> ou a peut-être été
+          déplacée.
         </p>
 
         <Link to="/" className="not-found__button">
-          Go to Home
+          Retour à l'accueil
         </Link>
       </div>
     </main>
   );
 }
-// harmonisation français, enlever animation bouton. 

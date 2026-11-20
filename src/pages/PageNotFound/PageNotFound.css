@@ -1,6 +1,4 @@
-/* ============================= */
-/* PAGE NOT FOUND - FULL SCREEN  */
-/* ============================= */
+/* PAGE 404 */
 
 .not-found {
   --color-primary: #084734;
@@ -10,14 +8,14 @@
 
   position: fixed;
   inset: 0;
+  z-index: 1000;
 
   display: flex;
   align-items: center;
   justify-content: center;
 
-  width: 100%;
+  width: 100vw;
   height: 100dvh;
-
   margin: 0;
   padding: 24px;
   box-sizing: border-box;
@@ -28,18 +26,15 @@
 
   overflow: hidden;
   isolation: isolate;
-  z-index: 10;
 }
 
-/* ============================= */
-/* FORMES DÉCORATIVES            */
-/* ============================= */
+/* DÉCORATIONS */
 
 .not-found__corner {
   position: absolute;
-  z-index: -1;
-  pointer-events: none;
   border-radius: 50%;
+  pointer-events: none;
+  z-index: -1;
 }
 
 .not-found__corner--top {
@@ -53,14 +48,12 @@
 .not-found__corner--bottom {
   width: 440px;
   height: 440px;
-  right: -270px;
   bottom: -300px;
+  right: -270px;
   background-color: var(--color-secondary);
 }
 
-/* ============================= */
-/* CONTENU PRINCIPAL             */
-/* ============================= */
+/* CONTENU */
 
 .not-found__content {
   position: relative;
@@ -73,17 +66,13 @@
 
   width: 100%;
   max-width: 720px;
-
   text-align: center;
 }
 
-/* ============================= */
-/* TEXTE 404                     */
-/* ============================= */
+/* 404 */
 
 .not-found__error {
   position: relative;
-
   display: flex;
   align-items: center;
   justify-content: center;
@@ -97,62 +86,55 @@
   z-index: 1;
 
   font-family: "Satoshi", sans-serif;
-  font-size: clamp(110px, 20vw, 180px);
+  font-size: clamp(100px, 18vw, 180px);
   font-weight: 900;
   line-height: 1;
   letter-spacing: -0.075em;
-
   padding-right: 0.075em;
 }
 
-/* Fond vert incliné derrière 404 */
+/* FOND VERT DERRIÈRE LE 404 */
 
 .not-found__highlight {
   position: absolute;
+  bottom: 0;
 
   width: 65%;
   max-width: 420px;
   height: 80px;
 
-  bottom: 0;
-
   background-color: var(--color-secondary);
   border-radius: 100px;
-
   transform: rotate(-4deg);
   opacity: 0.65;
 }
 
-/* ============================= */
-/* TITRE                         */
-/* ============================= */
+/* TITRE */
 
 .not-found__content h1 {
+  margin: 0 0 12px;
+
+  color: var(--color-primary);
   font-family: "Satoshi", sans-serif;
-  font-size: clamp(32px, 5vw, 52px);
+  font-size: clamp(30px, 5vw, 52px);
   font-weight: 900;
   line-height: 1.2;
   letter-spacing: -0.04em;
-
-  margin: 0 0 12px;
 }
 
-/* ============================= */
-/* DESCRIPTION                   */
-/* ============================= */
+/* DESCRIPTION */
 
 .not-found__content p {
+  margin: 0 0 28px;
+
+  color: var(--color-primary);
   font-family: "Satoshi", sans-serif;
   font-size: clamp(16px, 2vw, 20px);
   font-weight: 400;
   line-height: 1.5;
-
-  margin: 0 0 28px;
 }
 
-/* ============================= */
-/* BOUTON                        */
-/* ============================= */
+/* BOUTON */
 
 .not-found__button {
   display: inline-flex;
@@ -162,24 +144,31 @@
   min-width: 220px;
   padding: 13px 32px;
 
-  background-color: var(--color-primary);
-  color: var(--color-background);
+  background-color: #084734;
+  color: #ffffff;
 
   font-family: "Satoshi", sans-serif;
   font-size: 20px;
   font-weight: 700;
 
   text-decoration: none;
-  border-radius: 100px;
+  border: none;
+  border-radius: 22px;
+  cursor: pointer;
 
-  transition:
-    transform 0.2s ease,
-    background-color 0.2s ease;
+  /* Seule la couleur change */
+  transition: background-color 0.2s ease;
+  transform: none;
 }
 
 .not-found__button:hover {
-  background-color: #0b6047;
-  transform: translateY(-2px);
+  background-color: #38866f;
+  color: #ffffff;
+  transform: none;
+}
+
+.not-found__button:active {
+  transform: none;
 }
 
 .not-found__button:focus-visible {
@@ -187,9 +176,7 @@
   outline-offset: 4px;
 }
 
-/* ============================= */
-/* RESPONSIVE MOBILE             */
-/* ============================= */
+/* RESPONSIVE MOBILE */
 
 @media (max-width: 600px) {
   .not-found {
@@ -201,12 +188,8 @@
   }
 
   .not-found__highlight {
-    height: 55px;
     width: 75%;
-  }
-
-  .not-found__desktop-break {
-    display: none;
+    height: 55px;
   }
 
   .not-found__content h1 {
@@ -217,9 +200,13 @@
     font-size: 16px;
   }
 
+  .not-found__desktop-break {
+    display: none;
+  }
+
   .not-found__button {
-    font-size: 17px;
     min-width: 190px;
+    font-size: 17px;
   }
 
   .not-found__corner--top {
@@ -237,9 +224,7 @@
   }
 }
 
-/* ============================= */
-/* PETITS ÉCRANS EN HAUTEUR      */
-/* ============================= */
+/* PETITS ÉCRANS EN HAUTEUR */
 
 @media (max-height: 600px) {
   .not-found {
