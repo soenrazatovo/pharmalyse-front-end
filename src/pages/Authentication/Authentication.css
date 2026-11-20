@@ -84,7 +84,7 @@ body,
   text-align: center;
   font-weight: 900 !important;
   letter-spacing: -2px;
-  margin-bottom: 1.25rem !important;
+  margin-bottom: 1.5rem !important;
 }
 
 /* NOM / PRENOM */
@@ -124,6 +124,18 @@ body,
   border-color: #39846a !important;
 }
 
+.MuiOutlinedInput-root.Mui-error fieldset {
+  border-color: #d32f2f !important;
+}
+
+.MuiOutlinedInput-root.Mui-error:hover fieldset {
+  border-color: #d32f2f !important;
+}
+
+.MuiOutlinedInput-root.Mui-error.Mui-focused fieldset {
+  border-color: #d32f2f !important;
+}
+
 .MuiInputLabel-root {
   color: var(--color-primary) !important;
   font-weight: 500 !important;
@@ -138,6 +150,26 @@ body,
 
 .MuiInputLabel-root.Mui-focused {
   color: #39846a !important;
+}
+
+.MuiInputLabel-root.Mui-error {
+  color: #d32f2f !important;
+}
+
+
+.MuiInputLabel-root.MuiInputLabel-shrink {
+  font-size: 1.25rem !important;
+}
+
+.MuiOutlinedInput-notchedOutline legend span {
+  font-size: 0.95rem;
+}
+
+.MuiFormHelperText-root {
+  font-size: 0.95rem !important;
+  line-height: 1 !important;
+  margin: 0.4rem !important;
+  margin-left: 0rem !important;
 }
 
 .MuiOutlinedInput-input {
@@ -177,15 +209,24 @@ body,
   transform: none !important;
 }
 
+.auth-button.Mui-disabled {
+  background: #89aa9d !important;
+  color: #ffffff !important;
+  box-shadow: none !important;
+  cursor: not-allowed;
+}
+
 /* MOT DE PASSE OUBLIE */
 
-.auth-forgot {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
+.auth-password-wrapper {
+  position: relative;
+  padding-bottom: 8px;
+}
 
-  margin-top: -0.25rem;
-  margin-bottom: 0.25rem;
+.auth-forgot {
+  position: absolute;
+  right: 0;
+  top: calc(56px + 0.2rem);
 }
 
 .auth-forgot-btn {
@@ -194,7 +235,7 @@ body,
 
   color: var(--color-primary) !important;
 
-  font-size: 0.95rem !important;
+  font-size: 0.85rem !important;
   font-weight: 700 !important;
 
   text-transform: none !important;
