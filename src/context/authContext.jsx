@@ -2,7 +2,17 @@ import { createContext, useContext, useState, useEffect, useCallback } from 'rea
 import { jwtDecode } from 'jwt-decode';
 
 const AuthContext = createContext(undefined);
-const BASE_URL = "http://localhost:3000"
+
+async function getJson(res) {
+    if (!res.ok) {
+        // Fallback if error isn't JSON
+        const err = await res.json().catch(() => ({}));
+        const error = new Error(err.message || res.statusText);
+        error.status = res.status;
+        throw error;
+    }
+    return res.json();
+}
 
 export function AuthProvider({ children }) {
     const [token, setToken] = useState(() => localStorage.getItem('accessToken'));
@@ -40,12 +50,11 @@ export function AuthProvider({ children }) {
     }, []);
 
     const refresh = useCallback(async () => {
-        const res = await fetch(BASE_URL + '/user/refresh', {
+        const res = await fetch(import.meta.env.VITE_BACKEND_URL + '/user/refresh', {
             method: 'POST',
             credentials: 'include'
         });
-        if (!res.ok) throw new Error('Refresh failed');
-        const { accessToken } = await res.json();
+        const { accessToken } = await getJson(res);
         addToken(accessToken);
     }, [addToken]);
 
@@ -95,45 +104,57 @@ export function AuthProvider({ children }) {
 
     }, [token, isTokenExpired, refresh, removeToken]);
 
-
-    // ─── LOGIN ─────────────────────────────────────────────────
     // credentials: "include" → browser stores the httpOnly cookie from Set-Cookie header
-    const login = useCallback((email, password) => {
-        fetch(BASE_URL + '/user/login', {
+    const login = useCallback(async (payload) => {
+        const res = await fetch(import.meta.env.VITE_BACKEND_URL + '/user/login', {
             method: 'POST',
-            credentials: 'include',  // ← CRITICAL: browser stores the httpOnly cookie
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email, password }),
-        })
-        .then(res => {
-            if (!res.ok) {
-                const err = res.json().catch(() => ({}));
-                throw new Error(err.error || 'Login failed');
-            }
-            return res.json()
-        })
-        .then(data => {
-            const accessToken = data.accessToken;
-            addToken(accessToken);
-        })
-        .catch(err => console.error(err))
+            credentials: 'include',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+            },
+            body: JSON.stringify(payload),
+        });
+
+        const data = await getJson(res);
+        addToken(data.accessToken);
+        return data;
     }, [addToken]);
 
-    // ─── LOGOUT ────────────────────────────────────────────────
-    // Server clears the refreshToken cookie via res.clearCookie(...)
-    const logout = useCallback(() => {
-        fetch(BASE_URL + '/user/logout', {
-            method: 'DELETE',
-            credentials: 'include',  // ← server needs to read the cookie to clear it
-        })
-        .then(res => {
+    const signup = useCallback(async (payload) => {
+        const res = await fetch(import.meta.env.VITE_BACKEND_URL + '/user/signup', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+            },
+            body: JSON.stringify(payload),
+        });
+
+        return getJson(res);
+    }, []);
+
+    // Server clears the refreshToken cookie
+    const logout = useCallback(async (payload = {}) => {
+        try {
+            const res = await fetch(import.meta.env.VITE_BACKEND_URL + '/user/logout', {
+                method: 'DELETE',
+                credentials: 'include',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                },
+                body: JSON.stringify(payload),
+            });
+
+            return await getJson(res);
+        } finally {
             removeToken();
-        })
-        .catch(err => console.error(err))
+        }
     }, [removeToken]);
 
     return (
-        <AuthContext.Provider value={{ token, decoded, isTokenExpired, authFetch, addToken, removeToken, refresh }}>
+        <AuthContext.Provider value={{ token, decoded, isTokenExpired, authFetch, addToken, removeToken, refresh, login, signup, logout }}>
             {children}
         </AuthContext.Provider>
     );

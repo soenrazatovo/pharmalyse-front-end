@@ -1,5 +1,7 @@
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 
+import { AuthProvider } from "./context/authContext.jsx";
+
 import Header from "./components/Header/Header.jsx";
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute.jsx';
 
@@ -10,19 +12,23 @@ import "./App.css";
 
 function App() {
   return (
-    <BrowserRouter>
-      <Header />
+    <AuthProvider>
 
-      <Routes>
-        <Route element={<ProtectedRoute />}>
-        </Route>
+        <BrowserRouter>
+        <Header />
 
-        <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Authentication type="login" />} />
-        <Route path="/signup" element={<Authentication type="signup" />} />
+        <Routes>
+            <Route element={<ProtectedRoute />}>
+            </Route>
 
-      </Routes>
-    </BrowserRouter>
+            <Route path="/" element={<Home />} />
+            <Route path="/login" element={<Authentication type="login" />} />
+            <Route path="/signup" element={<Authentication type="signup" />} />
+
+        </Routes>
+        </BrowserRouter>
+        
+    </AuthProvider>
   );
 }
 
